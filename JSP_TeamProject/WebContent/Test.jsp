@@ -47,7 +47,7 @@
 </head>
 <body>
 	<%for(BoardVO vo : arr){ %>
-	<div>
+	<div>111
 	<%=vo.getI_board() %>
 	<%=vo.getI_title() %>
 	<%=vo.getI_ctnt() %>
