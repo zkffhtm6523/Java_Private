@@ -15,10 +15,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import com.allWebtoon.webtoon.webVO.CartoonVO;
+import com.allWebtoon.webtoon.webVO.WebtoonVO;
 
 public class Lezhin {
-	public static ArrayList<CartoonVO> getLezhin(ArrayList<CartoonVO> list) throws UnsupportedEncodingException, IOException {
+	public static ArrayList<WebtoonVO> getLezhin(ArrayList<WebtoonVO> list) throws UnsupportedEncodingException, IOException {
 
 		// 레진코믹스 연재작
 		URL url = new URL(
@@ -44,7 +44,9 @@ public class Lezhin {
 			for (int z = 0; z < items.size(); z++) {
 				JSONObject data = (JSONObject) items.get(z);
 				//CartoonVO 객체 생성
-				CartoonVO webtoonVO = new CartoonVO();
+				WebtoonVO webtoonVO = new WebtoonVO();
+				//0. 플랫폼 저장(1:네이버,2:다음,3:카카오,4:레진,5:코미코)
+				webtoonVO.setPlatform(4);
 				//1. Title 저장
 				webtoonVO.setTitle(data.get("title").toString());
 				//작가 정보 받아오기
@@ -58,7 +60,7 @@ public class Lezhin {
 					// 그림작가 이름
 					String dra_name = ((JSONObject) authors.get(1)).get("name").toString();
 					if (dra_name.equals("레진코믹스")) {
-						//3. 그림 작가 장
+						//3. 그림 작가 저장
 						webtoonVO.setWri_drawing(au_name);
 					} else {
 						webtoonVO.setWri_drawing(dra_name);
@@ -88,7 +90,7 @@ public class Lezhin {
 				JSONArray im = (JSONArray) data.get("mediaList");
 				String img = "https://cdn.lezhin.com/v2" + ((JSONObject) im.get(0)).get("url").toString();
 				// 7. 이미지 저장
-				webtoonVO.setImg(img);
+				webtoonVO.setThumbnail(img);
 					
 				list.add(webtoonVO);
 			}

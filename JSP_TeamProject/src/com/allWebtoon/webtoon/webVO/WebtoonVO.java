@@ -1,19 +1,26 @@
 package com.allWebtoon.webtoon.webVO;
 
-public class CartoonVO {
-		private String img;
+public class WebtoonVO {
+		private String thumbnail;
 		private String title;
 		private String wri_story;
 		private String wri_drawing;
 		private String story;
 		private String genre;
 		private String link;
+		private int platform;
 		
-		public String getImg() {
-			return img;
+		public int getPlatform() {
+			return platform;
 		}
-		public void setImg(String img) {
-			this.img = img;
+		public void setPlatform(int platform) {
+			this.platform = platform;
+		}
+		public String getThumbnail() {
+			return thumbnail;
+		}
+		public void setThumbnail(String img) {
+			this.thumbnail = img;
 		}
 		public String getTitle() {
 			return title;
