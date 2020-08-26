@@ -1,4 +1,5 @@
-package com.allWebtoon.webtoon;
+package com.allWebtoon.crawling;
+
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,16 +16,14 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import com.webtoon.value.Cartoon;
-
-public class KaKao {
-	public static void main(String[] args) throws IOException, ParseException {
+public class Kakao {
+	public static ArrayList<CrawWebtoonVO> getKakao() throws IOException, ParseException {
 
 		// 0~7 : 요일, 12: 완결
-		String[] day = { "0", "1", "2", "3", "4", "5", "6", "7", "12" };
+		String[] day = { "1", "2", "3", "4", "5", "6", "7", "12" };
 		// P: 무료 W: 시간 지나면 무료
 		String[] bm = { "P", "W" };
-		ArrayList<Cartoon> list = new ArrayList<Cartoon>();
+		ArrayList<CrawWebtoonVO> list = new ArrayList<CrawWebtoonVO>();
 
 		for (int i = 0; i < day.length; i++) {
 			for (int j = 0; j < bm.length; j++) {
@@ -34,6 +33,7 @@ public class KaKao {
 						String u = "https://api2-page.kakao.com/api/v2/store/day_of_week_top/list?category=10&subcategory=0&page="
 								+ z + "&day=" + day[i] + "&bm=" + bm[j];
 						URL url = new URL(u);
+						
 
 						HttpURLConnection huc = (HttpURLConnection) url.openConnection();
 						huc.connect();
@@ -44,9 +44,20 @@ public class KaKao {
 
 						for (int b = 0; b < bodyArray.size(); b++) {
 							JSONObject body = (JSONObject) bodyArray.get(b);
-							Cartoon c = new Cartoon();
-
+							CrawWebtoonVO c = new CrawWebtoonVO();
+							int stop=0;
+							
 							String title = body.get("title").toString();
+							
+							//이미 제목이 같은 객체가 있을 경우 건너뜀.
+							for(CrawWebtoonVO vo : list) {
+								if(vo.getTitle().equals(title)) {
+									stop =1;
+								}
+							}
+							if(stop==1) {
+								continue;
+							}
 							String img = "https://dn-img-page.kakao.com/download/resource?kid="
 									+ body.get("square_thumbnail_url").toString();
 							String link = "https://page.kakao.com/home?seriesId=" + body.get("series_id");
@@ -59,12 +70,13 @@ public class KaKao {
 
 							c.setTitle(title);
 							for (String w : writers) {
-								c.setWri_story(w);
+								c.setWriter(w);
 							}
 							c.setStory(story);
 							c.setGenre(genre);
-							c.setImg(img);
+							c.setThumbnail(img);
 							c.setLink(link);
+							c.setPlatform(3);
 
 							list.add(c);
 						}
@@ -74,15 +86,7 @@ public class KaKao {
 				}
 			}
 		}
-
-		for (Cartoon c : list) {
-			System.out.println("제목: " + c.getTitle());
-			System.out.println("작가: " + c.getWri_story());
-			System.out.println("스토리: " + c.getStory());
-			System.out.println("장르: " + c.getGenre());
-			System.out.println("링크: " + c.getLink());
-			System.out.println("이미지: " + c.getImg());
-		}
+		return list;
 	}
 
 	// 웹툰 상세페이지로 이동해서 새로운 JSON 객체 리턴

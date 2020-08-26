@@ -1,16 +1,17 @@
-<%@page import="com.webtoon.vo.BoardVO"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	
+	img{width: 200px; }
+</style>
 </head>
 <body>
-	<h1>Hello World!</h1>
+<h1>ddd</h1>
+<img alt="" src="https://raw.githubusercontent.com/truespring/Team_Project/master/logo.png?token=AP45MSJZTID3QDXF2C3KZSK7I2M7M">
 </body>
 </html>

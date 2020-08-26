@@ -1,4 +1,4 @@
-package com.allWebtoon.webtoon.db;
+package com.allWebtoon.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
