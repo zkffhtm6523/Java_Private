@@ -13,24 +13,22 @@
         }
         #logo{width: 300px;	}
         .container .header {
-            width: 1100px; padding: 10px; height: 100px; margin: 0 auto;	
-        }
-        .container .header form {
-            float: right;
-        }
-        .container .header #project {
-            float: left; font-size: 1.6em; text-decoration: none;
-            color: green;
+            width: 1200px; padding: 10px; height: 100px; margin: 0 auto;	
         }
         .container .header #search {
-            margin-right: 10px; clear: both;
+            margin-right: 10px; 
         }
         .container .header #login {
             margin-right: 10px;
         }
         .container section {
-            margin: 0 auto;
+            margin: 0 auto; clear: both;
         }
+        #logo{float: left; padding: 20px;}
+        .topMenu{width:400px; padding: 20px; float: right; margin-right: 10px;
+        }
+        .topMenu #search{padding: 10px;}
+        .topMenu button{padding:10px;}
         .box1, .box2, .box3 {
            margin:0 auto; width: 1200px; margin-bottom: 40px; padding: 5px;
         }
@@ -52,20 +50,13 @@
 <body>
     <div class="container">
         <div class="header">
-			<img alt="모두의 웹툰" src="https://raw.githubusercontent.com/truespring/Team_Project/master/logo.png?token=AP45MSJZTID3QDXF2C3KZSK7I2M7M" id="logo">            
+			<img alt="모두의 웹툰" id="logo" onclick="goHome()">            
             <!-- 사이트 대표 아이콘 홈으로 돌아오는 링크 -->
-            <form action="" method="get" id="signin">
-                <button>회원가입</button>
-                <!-- 회원가입 버튼 -->
-            </form>
-            <form action="/Watcha/login.html" method="post" id="login">
-                <button><a href="/Watcha/login.html" id="btn_login">로그인</a></button>
-                <!-- 로그인 버튼 -->
-            </form>
-            <form action="" method="get">
-                <input type="text" name="search" id="search" placeholder="웹툰, 작가를 검색하세요">
-                <!-- 검색창 -->
-            </form>
+			<div class="topMenu">
+				<input type="text" id="search" placeholder="웹툰, 작가를 검색하세요" onkeydown="moveToResult()">
+	            <button id="btn_login" onclick="moveToLogin()">로그인</button>
+	            <button id="signin" onclick="moveToJoin()">회원가입</button>
+            </div>
         </div>
         <section>
         	
@@ -98,8 +89,22 @@
             </div>
         </section>
     </div>
-    <img src="https://github.com/truespring/Team_Project/blob/master/logo.png?raw=true">
     <script>
+    	function moveToLogin() {
+			location.href = '/login'
+		}
+    	function moveToJoin() {
+			location.href = '/join'
+		}
+    	function moveToResult() {
+			if(event.keyCode == 13){
+				var result = search.value
+				location.href = '/searchResult?result='+result
+			}
+		}
+    	function goHome() {
+    		location.href = '/home'
+    	  }
     </script>
 </body>
 </html>

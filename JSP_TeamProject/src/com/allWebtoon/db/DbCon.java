@@ -13,9 +13,6 @@ public class DbCon {
 		String dbPassword = "root";		
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = DriverManager.getConnection(dbURL,dbID,dbPassword);
-		
-		System.out.println("DB 접속 성공");
-		
 		return conn;
 	}
 	

@@ -14,7 +14,7 @@ public class ViewResolver {
 		}
 	public static void accessForward(String fileNm, HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
-		String jsp = String.format("/WEB-INF/view/%s.jsp", fileNm);
+		String jsp = String.format("/WEB-INF/access/%s.jsp", fileNm);
 		request.getRequestDispatcher(jsp).forward(request, response);
 	}
 }

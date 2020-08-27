@@ -11,7 +11,7 @@
 </style>
 </head>
 <body>
-<h1>ddd</h1>
-<img alt="" src="https://raw.githubusercontent.com/truespring/Team_Project/master/logo.png?token=AP45MSJZTID3QDXF2C3KZSK7I2M7M">
+	<h1>ddd</h1>
+	<img src="images/1.jpg">
 </body>
 </html>

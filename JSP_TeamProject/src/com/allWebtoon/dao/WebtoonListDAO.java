@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.allWebtoon.db.JdbcSelectInterface;
 import com.allWebtoon.db.JdbcTemplate;
+import com.allWebtoon.vo.SearchWebtoonVO;
 import com.allWebtoon.vo.WebtoonVO;
 
 public class WebtoonListDAO {
@@ -34,13 +35,43 @@ public class WebtoonListDAO {
 					vo.setW_thumbnail(rs.getNString("w_thumbnail"));
 					vo.setW_platform(rs.getInt("w_platform"));
 					list.add(vo);
-					System.out.println("플랫폼 넘버"+rs.getInt("w_platform"));
-					System.out.println(rs.getNString("w_title"));
 				}
 				return 1;
 			}
 		});
 		
+		return list;
+	}
+	public static ArrayList<SearchWebtoonVO> selSearchList(SearchWebtoonVO vo, int randomLength){
+		ArrayList<SearchWebtoonVO> list = new ArrayList<SearchWebtoonVO>();
+		String sql = " SELECT w_no, w_title, w_story, w_thumbnail, w_platform "
+				+ " FROM t_webtoon "
+				+ " WHERE w_title "
+				+ " LIKE ? "
+				+ " ORDER BY RAND() LIMIT ? ";
+		
+		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+			
+			@Override
+			public void prepared(PreparedStatement ps) throws SQLException {
+				ps.setNString(1, "%"+vo.getSearchKeyword()+"%");
+				ps.setInt(2, randomLength);
+			}
+			
+			@Override
+			public int executeQuery(ResultSet rs) throws SQLException {
+				while(rs.next()) {
+					SearchWebtoonVO param = new SearchWebtoonVO();
+					param.setW_no(rs.getInt("w_no"));
+					param.setW_title(rs.getNString("w_title"));
+					param.setW_story(rs.getNString("w_story"));
+					param.setW_thumbnail(rs.getNString("w_thumbnail"));
+					param.setW_platform(rs.getInt("w_platform"));
+					list.add(param);
+				}
+				return 1;
+			}
+		});
 		return list;
 	}
 	
