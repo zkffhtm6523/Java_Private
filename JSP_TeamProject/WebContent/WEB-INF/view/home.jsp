@@ -50,7 +50,7 @@
 <body>
     <div class="container">
         <div class="header">
-			<img alt="모두의 웹툰" id="logo" onclick="goHome()">            
+			<img alt="모두의 웹툰" src="/images/logo.png" id="logo" onclick="goHome()">            
             <!-- 사이트 대표 아이콘 홈으로 돌아오는 링크 -->
 			<div class="topMenu">
 				<input type="text" id="search" placeholder="웹툰, 작가를 검색하세요" onkeydown="moveToResult()">

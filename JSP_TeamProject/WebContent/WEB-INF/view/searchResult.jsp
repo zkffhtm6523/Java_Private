@@ -18,15 +18,11 @@
     .topMenu button{padding:10px;}
     .container section {width: 1200px; padding: 10px; margin: 0 auto; clear: both;}
     h2{margin-top: 0px;}
-    #webtoonContainer {
-        width: 500px; border: 1px solid black; margin: 5px; padding: 10px;
-    }
-    ul {
-        list-style-type: none;
-    }
-    ul li:nth-child(1) {
-        float: left; padding: 30px; 
-    }
+    #webtoonContainer {width: 500px; border: 1px solid black; margin: 5px; padding: 10px;}
+    ul {list-style-type: none;}
+    ul li:nth-child(1) {float: left; padding: 30px;}
+    ul{ clear: both;}
+    .thumbnail{width: 200px; height: 200px;}
 </style>
 </head>
 <body>
@@ -46,8 +42,8 @@
                 <hr>
          <c:forEach items="${result}" var="item">
             <div class="webtoonContainer">
-               <ul class="itemRow" onclick="moveToDetail(${item.w_no})">
-                  <li><img src=" ${item.w_thumbnail }"></li>
+               <ul class="itemRow">
+                  <li><img class="thumbnail" src=" ${item.w_thumbnail }"></li>
                   <li>${item.w_title }</li>
                   <li></li>
                   <li>${item.w_story }</li>

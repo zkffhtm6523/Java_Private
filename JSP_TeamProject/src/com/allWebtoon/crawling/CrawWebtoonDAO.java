@@ -3,7 +3,6 @@ package com.allWebtoon.crawling;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.allWebtoon.crawling.CrawWebtoonVO;
 import com.allWebtoon.db.JdbcTemplate;
 import com.allWebtoon.db.JdbcUpdateInterface;
 

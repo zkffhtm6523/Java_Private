@@ -44,18 +44,22 @@ public class WebtoonListDAO {
 	}
 	public static ArrayList<SearchWebtoonVO> selSearchList(SearchWebtoonVO vo, int randomLength){
 		ArrayList<SearchWebtoonVO> list = new ArrayList<SearchWebtoonVO>();
-		String sql = " SELECT w_no, w_title, w_story, w_thumbnail, w_platform "
-				+ " FROM t_webtoon "
-				+ " WHERE w_title "
-				+ " LIKE ? "
-				+ " ORDER BY RAND() LIMIT ? ";
+		String sql = " SELECT A.w_no, w_title, concat(left(w_story, 300),'...') as w_story, w_thumbnail, w_platform, B.w_genre, C.w_writer " 
+				 + " FROM t_webtoon A "
+				 + " inner join t_w_genre B"
+				 + " on A.w_no = B.w_no "
+				 + " inner join t_w_writer C "
+				 + " on A.w_no = C.w_no "
+				 + " where A.w_title like ? or B.w_genre like ? or C.w_writer like ? "
+				 + " ORDER BY RAND() LIMIT ? ";
 		
 		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
-			
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
 				ps.setNString(1, "%"+vo.getSearchKeyword()+"%");
-				ps.setInt(2, randomLength);
+				ps.setNString(2, "%"+vo.getSearchKeyword()+"%");
+				ps.setNString(3, "%"+vo.getSearchKeyword()+"%");
+				ps.setInt(4, randomLength);
 			}
 			
 			@Override
