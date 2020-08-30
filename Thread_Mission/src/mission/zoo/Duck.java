@@ -2,7 +2,7 @@ package mission.zoo;
 
 public class Duck implements Runnable {
 	void soundDuck() {
-		System.out.println("꽥꽥~");
+		System.out.println("꽥꽥1~");
 	}
 	@Override
 	public void run() {
