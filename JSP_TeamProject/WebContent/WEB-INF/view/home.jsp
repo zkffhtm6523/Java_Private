@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>홈 화면</title>
-    <style>
-        .container {
+    <style type="text/css">
+    .container {
             width: 100%; margin: 0 auto;
         }
         #logo{width: 300px;	}
@@ -88,6 +88,9 @@
                </c:forEach>
             </div>
         </section>
+        <footer>
+        	
+        </footer>
     </div>
     <script>
     	function moveToLogin() {

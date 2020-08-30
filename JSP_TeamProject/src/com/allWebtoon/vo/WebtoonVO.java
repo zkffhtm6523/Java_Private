@@ -8,7 +8,6 @@ public class WebtoonVO {
 	private String w_link;
 	private int w_platform;
 	
-	
 	public int getW_no() {
 		return w_no;
 	}

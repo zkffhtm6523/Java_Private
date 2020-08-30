@@ -18,11 +18,15 @@
     .topMenu button{padding:10px;}
     .container section {width: 1200px; padding: 10px; margin: 0 auto; clear: both;}
     h2{margin-top: 0px;}
-    #webtoonContainer {width: 500px; border: 1px solid black; margin: 5px; padding: 10px;}
-    ul {list-style-type: none;}
-    ul li:nth-child(1) {float: left; padding: 30px;}
-    ul{ clear: both;}
-    .thumbnail{width: 200px; height: 200px;}
+    #webtoonContainer {width: 500px; border: 1px solid black; margin: 5px; padding: 10px; position: relative;}
+    ul {list-style-type: none; clear: both;}
+    ul li:nth-child(1) {float: left; padding: 30px; padding-top: 0px;}
+    ul li img{ border-radius: 10%;}
+    ul li:nth-child(2) {font-weight: bold; font-size: 1.1em;}
+    ul li:nth-child(3) {line-height: 25px;}
+    ul li:not(:first-child){margin-top: 20px;}
+    ul li .list{color: gray; font-weight: gray;}
+    ul .thumbnail{width: 200px; height: 200px;}
 </style>
 </head>
 <body>
@@ -44,10 +48,10 @@
             <div class="webtoonContainer">
                <ul class="itemRow">
                   <li><img class="thumbnail" src=" ${item.w_thumbnail }"></li>
-                  <li>${item.w_title }</li>
-                  <li></li>
-                  <li>${item.w_story }</li>
-                  <li>${item.w_platform }</li>
+                  <li><a href="/webtoon/detail?w_no=${item.w_no}">${item.w_title }</a></li>
+                  <li><span class="list" id="ctnt">내용</span> &nbsp; ${item.w_story }</li>
+                  <li><span class="list">작가</span> &nbsp; ${item.w_writer}</li>
+                  <li><span class="list">장르</span> &nbsp; ${item.w_genre}</li>
                </ul>
             </div>
          </c:forEach>

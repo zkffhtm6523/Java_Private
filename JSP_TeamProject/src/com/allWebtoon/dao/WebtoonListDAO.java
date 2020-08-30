@@ -11,6 +11,7 @@ import com.allWebtoon.vo.SearchWebtoonVO;
 import com.allWebtoon.vo.WebtoonVO;
 
 public class WebtoonListDAO {
+	// 홈화면 출력 
 	public static ArrayList<WebtoonVO> selRandomWebtoonList(ArrayList<WebtoonVO> list, int platformNum, int randomLength){
 		String sql = " select w_no, w_title, w_story, w_thumbnail, w_link, w_platform "
 					+ " from t_webtoon "
@@ -42,17 +43,22 @@ public class WebtoonListDAO {
 		
 		return list;
 	}
+	// 검색 결과
 	public static ArrayList<SearchWebtoonVO> selSearchList(SearchWebtoonVO vo, int randomLength){
 		ArrayList<SearchWebtoonVO> list = new ArrayList<SearchWebtoonVO>();
-		String sql = " SELECT A.w_no, w_title, concat(left(w_story, 300),'...') as w_story, w_thumbnail, w_platform, B.w_genre, C.w_writer " 
+		String sql = " SELECT distinct A.w_no, w_title, concat(left(w_story, 200), '...') as w_story, w_thumbnail, D.w_genre, E.w_writer "
 				 + " FROM t_webtoon A "
-				 + " inner join t_w_genre B"
-				 + " on A.w_no = B.w_no "
-				 + " inner join t_w_writer C "
-				 + " on A.w_no = C.w_no "
+				 + " left join t_w_genre B "
+				 + " on A.w_no = B.w_no " 
+				 + " left join t_w_writer C "
+				 + " on A.w_no = C.w_no " 
+				 + " left join (select w_no, group_concat(distinct w_genre separator ', ') as w_genre from t_w_genre group by w_no) D "
+				 + " on A.w_no = D.w_no "
+				 + " left join (select w_no, group_concat(distinct w_writer separator ', ') as w_writer from t_w_writer group by w_no) E "
+				 + " on A.w_no = E.w_no "
 				 + " where A.w_title like ? or B.w_genre like ? or C.w_writer like ? "
-				 + " ORDER BY RAND() LIMIT ? ";
-		
+				 + " order by rand() limit ? ";
+
 		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
@@ -70,7 +76,8 @@ public class WebtoonListDAO {
 					param.setW_title(rs.getNString("w_title"));
 					param.setW_story(rs.getNString("w_story"));
 					param.setW_thumbnail(rs.getNString("w_thumbnail"));
-					param.setW_platform(rs.getInt("w_platform"));
+					param.setW_genre(rs.getNString("w_genre"));
+					param.setW_writer(rs.getNString("w_writer"));
 					list.add(param);
 				}
 				return 1;
@@ -78,5 +85,32 @@ public class WebtoonListDAO {
 		});
 		return list;
 	}
+	// 웹툰 디테일
+		public static WebtoonVO webtoonDetail(int w_no) {
+			WebtoonVO vo = new WebtoonVO();
+			String sql = " SELECT w_thumbnail, w_title, concat(left(w_story, 300),'…') as w_story, w_platform "
+					+ " FROM t_webtoon "
+					+ " WHERE w_no = ? ";
+
+			JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+
+				@Override
+				public void prepared(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, w_no);
+				}
+
+				@Override
+				public int executeQuery(ResultSet rs) throws SQLException {
+					if(rs.next()) {
+						vo.setW_thumbnail(rs.getNString("w_thumbnail"));
+						vo.setW_title(rs.getNString("w_title"));
+						vo.setW_story(rs.getNString("w_story"));
+						vo.setW_platform(rs.getInt("w_platform"));
+					}
+					return 1;
+				}
+			});
+			return vo;
+		}
 	
 }
