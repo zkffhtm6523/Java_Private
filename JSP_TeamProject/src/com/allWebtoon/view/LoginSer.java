@@ -3,7 +3,6 @@ package com.allWebtoon.view;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.allWebtoon.api.GoogleAPI2;
 import com.allWebtoon.api.KakaoAPI;
 import com.allWebtoon.dao.UserDAO;
 import com.allWebtoon.util.Const;
@@ -39,7 +37,9 @@ public class LoginSer extends HttpServlet {
 			String access_token = KakaoAPI.getAccessToken(request.getParameter("code"));
 			UserVO userInfo = KakaoAPI.getUserInfo(access_token);
 			int result = UserDAO.selKakaoUser(userInfo);
-			if(result != 1) {		//에러처리
+			System.out.println("result : "+result);
+			//에러처리
+			if(result != 1) {		
 				String msg = null;
 				switch(result) {
 					case 0:
@@ -54,7 +54,6 @@ public class LoginSer extends HttpServlet {
 				}
 				request.setAttribute("msg",msg);
 				request.setAttribute("user_id", userInfo.getName());
-				doGet(request,response);
 				return;
 			}
 			HttpSession hs = request.getSession();

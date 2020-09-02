@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>모두의 웹툰(검색 결과)</title>
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Cute+Font&family=Noto+Sans+KR&family=Noto+Serif+KR:wght@600&display=swap" rel="stylesheet">
 <style type="text/css">
-   .container {width: 100%; margin: 0 auto; font-family: 'Noto Serif KR', serif ;}
+    @font-face {font-family: 'GmarketSansMedium';src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight: normal;font-style: normal;}
+   .container {width: 100%; margin: 0 auto; font-family: 'GmarketSansMedium', serif  ;}
 	#logo{width: 250px; cursor: pointer; float: left; height: 80px;}
 	.header {width: 1200px; padding: 10px; height: 100px; margin: 0 auto;}
 	.header #search {margin-right: 10px;}

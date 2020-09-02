@@ -1,2 +1,35 @@
 @charset "UTF-8";
+  @font-face {font-family: 'GmarketSansMedium';src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight: normal;font-style: normal;}
+    .container {width: 100%; margin: 0 auto; font-family: 'GmarketSansMedium', serif ;}
+	.header {width: 1200px; padding: 10px; height: 100px; margin: 30px auto;}
+	.header #logo{width: 250px; cursor: pointer; float: left; height: 80px; margin-left: 80px;}
+	.header #search {margin: 20px 10px 10px 140px;width: 406px;height: 41px;background: #FFFFFF;padding-left: 30px; 
+	padding-right:20px;
+	border: 1px solid #4FA2C7;box-sizing: border-box;border-radius: 10px;}
+	.header #login,#myPage {margin-right: 10px;background: #4FA2C7;border-radius: 10px;width: 98px;height: 41px;color: white; font-family: 'GmarketSansMedium', serif ;border: none;}
+    .header #signin,#logout { background: #4FA2C7;border-radius: 10px;width: 98px;height: 41px;color: white; font-family: 'GmarketSansMedium',serif;border: none;}
+	.container section {margin: 0 auto; clear: both;}
+	section h1{margin-left: 20px;}
+	.box1, .box2, .box3 {margin:0 auto; width: 1200px; height : 320px; margin-bottom: 10px;}
+	.container section ul {list-style-type: none; height: 100px;}
+	.container section ul li {float: left; margin: 20px; border: 1px solid black;padding: 10px;}
+	#btn_login {text-decoration: none; color: black;}
+	.naver{display: inline-block; width: 200px; text-align: center;padding: 10px;
+		  height: 260px; margin-top: 20px; margin-left: 13px;}
+	img{width: 180px; border-radius: 5%;}
+	section img, section span {cursor: pointer;}
+	.paramValue{width: 180px; height: 50px;}
+	button:hover {cursor: pointer;}
+	.containerPImg {
+		display: inline-block;	
+		width: 40px;
+		height: 40px;
+	    border-radius: 50%;
+	    overflow: hidden;
+	}
+	.pImg {
+		object-fit: cover;
+		height: 100%;
+		width: 100%;
+	}
  

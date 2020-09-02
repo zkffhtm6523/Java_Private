@@ -3,6 +3,11 @@ package com.allWebtoon.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import com.allWebtoon.vo.UserVO;
+
 public class MyUtils {
 
 	//비밀번호 암호화
@@ -26,6 +31,11 @@ public class MyUtils {
 	      }
 
 	      return sha;
+		}
+		//세션의 attr 조회 기능 : 로그인 유저 여부 확인용
+		public static UserVO getLoginUser(HttpServletRequest request) {
+			HttpSession hs = request.getSession();
+			return (UserVO)hs.getAttribute(Const.LOGIN_USER);
 		}
 		
 }
