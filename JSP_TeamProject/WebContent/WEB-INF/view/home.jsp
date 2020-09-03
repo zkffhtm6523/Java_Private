@@ -27,11 +27,11 @@
 		width: 40px;
 		height: 40px;
 	    border-radius: 50%;
-	    overflow: hidden;
-	    position: absolute;
-	    top: 20px;
-	    right: 320px;
-	}
+		    overflow: hidden;
+		    position: absolute;
+		    top: 20px;
+		    right: 320px;
+		}
 	.containerPImg:hover{cursor: pointer;}	
 	.pImg {
 		object-fit: cover;	
