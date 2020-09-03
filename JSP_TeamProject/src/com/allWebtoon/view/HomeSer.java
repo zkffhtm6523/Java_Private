@@ -25,12 +25,18 @@ public class HomeSer extends HttpServlet {
 		if(loginUser == null) {
 			System.out.println("로그인 유저 없음");
 			//네이버 정보 출력
-			list = WebtoonListDAO.selRandomWebtoonList(list, 1, 5);
+			ArrayList<WebtoonVO> naverList = new ArrayList<WebtoonVO>();
+			naverList = WebtoonListDAO.selRandomWebtoonList(naverList, 1, 15);
 			//카카오 정보 출력
-			list = WebtoonListDAO.selRandomWebtoonList(list, 3, 5);
+			ArrayList<WebtoonVO> kakaoList = new ArrayList<WebtoonVO>();
+			kakaoList = WebtoonListDAO.selRandomWebtoonList(kakaoList, 3, 15);
 			//레진 정보 출력
-			list = WebtoonListDAO.selRandomWebtoonList(list, 4, 5);
+			ArrayList<WebtoonVO> lezhinList = new ArrayList<WebtoonVO>();
+			lezhinList = WebtoonListDAO.selRandomWebtoonList(lezhinList, 4, 15);
 			//네이버 정보 출력
+			request.setAttribute("naverList", naverList);
+			request.setAttribute("kakaoList", kakaoList);
+			request.setAttribute("lezhinList", lezhinList);
 		}else {
 			//네이버 정보 출력
 			list = WebtoonListDAO.selRandomWebtoonList(list, 1, 5);
@@ -39,8 +45,8 @@ public class HomeSer extends HttpServlet {
 			//레진 정보 출력
 			list = WebtoonListDAO.selRandomWebtoonList(list, 4, 5);
 			//네이버 정보 출력
+			request.setAttribute("list", list);
 		}
-		request.setAttribute("list", list);
 		ViewResolver.viewForward("home", request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
