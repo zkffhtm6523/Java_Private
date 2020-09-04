@@ -28,6 +28,8 @@
         #birth {
             width: 220px; margin: 10px;
         }
+        #selected_genre a {color: red;}
+        #selected_genre a:hover {focus:pointer;}
     </style>
 </head>
 <body>
@@ -37,6 +39,7 @@
 	        <div class="err">${msg}</div>
 	 
             <form id="frm" action="/join" method="post" onsubmit="return chk()">
+            	<div id="genre_arr"></div>
             	<input type="text" name="id" id="id" placeholder="id" autofocus><br>
                 <input type="password" name="pw" id="pw" placeholder="비밀번호"><br>
                 <input type="password" name="pw2" id="pw2" placeholder="비밀번호 확인"><br>
@@ -51,6 +54,41 @@
     </div>
     
     <script>
+    
+    	var genres_arr = new Array();
+    
+    	function sel_genre(){
+    		
+			var sel_text = genres.options[genres.selectedIndex].text;
+			if(genres_arr.length <3 && genres_arr.indexOf(sel_text) == -1){
+				genres_arr.push(sel_text);
+				showlist();
+			}
+			
+		//	genre_arr.innerHTML = "<input type='hidden' name='genre_arr' value="+ genres_arr +">";
+			inputhtml(genres_arr);
+			
+    	}
+    	
+    	function cancleSel(i){
+    		genres_arr.splice(i,1);
+    		showlist();
+    	}
+    	
+    	function showlist(){
+    		selected_genre.innerHTML = ""
+			for(var i=0; i<genres_arr.length; i++){
+				selected_genre.innerHTML += genres_arr[i] + "<a onclick='cancleSel("+i+")' >x</a>"
+			}
+    	}
+    	
+    	function inputhtml(arr){
+    		genre_arr.innerHTML = "";
+    		for(var i=0; i<arr.length; i++){
+    			genre_arr.innerHTML += "<input type='hidden' name='genre_arr' value="+ arr[i] +">";
+    		}
+    	}
+    
 		function chk(){
 			
 			const korean = /[^가-힣]/	;				//한글 정규식 : /[가-힣]/ : 한글이 들어가있으면 true반환. ^(not)붙여서 한글만 있는경우 false 반환

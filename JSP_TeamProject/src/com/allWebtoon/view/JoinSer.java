@@ -48,8 +48,7 @@ public class JoinSer extends HttpServlet {
 			return;
 		}
 		
-		response.sendRedirect("/login");
-		
+		response.sendRedirect("/choGenre?user_id="+ param.getUser_id());
 		
 	}
 }

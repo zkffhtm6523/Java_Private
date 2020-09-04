@@ -63,7 +63,7 @@ public class UserDAO {
 					}
 				}else {			
 					System.out.println("아이디 없음");//레코드가 없음. (아이디 없음)
-					return insUser(param);						
+					return 0;						
 				}
 				
 			}	
@@ -92,7 +92,7 @@ public class UserDAO {
 						return 2;
 					}
 				}else {							//레코드가 없음. (아이디 없음)
-					return insUser(param);						
+					return 0;						
 				}
 				
 			}	
@@ -134,4 +134,15 @@ public class UserDAO {
 				}	
 			});
 		}
+	public static void insU_genre(UserVO param,String str) {
+		String sql = "INSERT INTO t_u_genre(u_no, genre_no) VALUES ((select u_no from t_user where u_id=?), (select genre_no from t_genre where genre_name=?))";
+		
+		JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {
+				ps.setNString(1,param.getUser_id());
+				ps.setNString(2,str);
+			}
+		});
+	}
 }

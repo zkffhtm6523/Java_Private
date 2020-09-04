@@ -9,7 +9,15 @@ public class UserVO {
 	private String gender;
 	private String email;
 	private String profile;
+	private String[] u_genre;
+
 	
+	public String[] getU_genre() {
+		return u_genre;
+	}
+	public void setU_genre(String[] u_genre) {
+		this.u_genre = u_genre;
+	}
 	public int getU_no() {
 		return u_no;
 	}

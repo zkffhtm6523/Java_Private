@@ -20,6 +20,7 @@ import org.json.simple.parser.JSONParser;
 
 import com.allWebtoon.dao.UserDAO;
 import com.allWebtoon.util.Const;
+import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -123,23 +124,18 @@ public class NaverAPI extends HttpServlet {
 				
 				int db_result = UserDAO.selNaverUser(userInfo);
 				
-				if(db_result != 1) {		//에러처리
-					String msg = null;
-					switch(db_result) {
-						case 0:
-						msg = "에러가 발생했습니다";
-						break;
-						case 2:
-						msg = "비밀번호가 틀렸습니다.";
-						break;
-						case 3:
-						msg = "아이디가 없음";
-						break;
-					}
+				if(db_result == 0) {
+					UserDAO.insUser(userInfo);
+					response.sendRedirect("/choGenre?user_id="+userInfo.getUser_id());
+					return;
+				}else if(db_result == 2) {
+					String msg = "비밀번호가 틀렸습니다.";
 					request.setAttribute("msg",msg);
 					request.setAttribute("user_id", userInfo.getName());
+					ViewResolver.accessForward("login", request, response);
 					return;
 				}
+				
 				HttpSession hs = request.getSession();
 				hs.setAttribute(Const.LOGIN_USER,userInfo);
 				

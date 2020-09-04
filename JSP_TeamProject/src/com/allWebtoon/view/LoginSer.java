@@ -37,25 +37,19 @@ public class LoginSer extends HttpServlet {
 			String access_token = KakaoAPI.getAccessToken(request.getParameter("code"));
 			UserVO userInfo = KakaoAPI.getUserInfo(access_token);
 			int result = UserDAO.selKakaoUser(userInfo);
-			System.out.println("result : "+result);
-			//에러처리
-			if(result != 1) {		
-				String msg = null;
-				switch(result) {
-					case 0:
-					msg = "에러가 발생했습니다";
-					break;
-					case 2:
-					msg = "비밀번호가 틀렸습니다.";
-					break;
-					case 3:
-					msg = "아이디가 없음";
-					break;
-				}
-				request.setAttribute("msg",msg);
-				request.setAttribute("user_id", userInfo.getName());
+			if(result == 0) {
+				UserDAO.insUser(userInfo);
+				response.sendRedirect("/choGenre?user_id="+userInfo.getUser_id());
 				return;
 			}
+			
+			System.out.println("result : "+result);
+			//에러처리
+			if(result == 2) {		
+				String msg = "비밀번호가 틀렸습니다.";
+				request.setAttribute("msg",msg);
+			}
+			request.setAttribute("user_id", userInfo.getName());
 			HttpSession hs = request.getSession();
 			hs.setAttribute(Const.LOGIN_USER,userInfo);
 			
@@ -71,6 +65,7 @@ public class LoginSer extends HttpServlet {
 		String encrypt_pw = MyUtils.encryptString(user_pw);
 		
 		UserVO param = new UserVO();
+		
 		
 		param.setUser_id(user_id);
 		param.setUser_password(encrypt_pw);
@@ -102,6 +97,7 @@ public class LoginSer extends HttpServlet {
 		
 		System.out.println("로그인성공");
 		response.sendRedirect("/");
+		
 	}
 
 }

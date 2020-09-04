@@ -35,7 +35,7 @@ public class CrawWebtoonDAO {
 	}
 	
 	public static void inst_writer(CrawWebtoonVO param, String writer) {
-		String sql = "insert into t_w_writer(w_no, w_writer) value ((select w_no from t_webtoon where w_title=?),?)";
+		String sql = "insert into t_w_writer(w_no, w_writer) values ((select w_no from t_webtoon where w_title=?),?)";
 
 		JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
 		
@@ -49,7 +49,7 @@ public class CrawWebtoonDAO {
 	}
 	
 	public static void inst_genre(CrawWebtoonVO param, int genre) {
-		String sql = "insert into t_w_genre(w_no, genre_no) value ((select w_no from t_webtoon where w_title=?),?)";
+		String sql = "insert into t_w_genre(w_no, genre_no) values ((select w_no from t_webtoon where w_title=?),?)";
 
 		JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
 		
