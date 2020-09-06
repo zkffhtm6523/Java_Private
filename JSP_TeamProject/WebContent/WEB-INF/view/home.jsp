@@ -8,37 +8,7 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
-@font-face {font-family: 'GmarketSansMedium';src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight: normal;font-style: normal;}
-    #container {width: 100%; height:1000px;  margin: 0 auto; font-family: 'GmarketSansMedium', serif ;}
-	.header {width: 1200px; padding: 10px; height: 80px; margin: 15px auto;}
-	#logo{width: 250px; cursor: pointer; float: left; height: 80px; margin-left: 40px; z-index: 100%;}
-	#search {margin: 20px 10px 10px 130px;width: 406px;height: 41px;background: #FFFFFF;padding-left: 30px; 
-	padding-right:20px; border: 1px solid #4FA2C7;box-sizing: border-box;border-radius: 10px;}
-	#login,#myPage {margin-right: 10px;background: #4FA2C7;border-radius: 10px;width: 98px;height: 41px;color: white; font-family: 'GmarketSansMedium', serif ;border: none;
-	position: absolute; right: 200px; top: 20px;}
-    #signin,#logout { background: #4FA2C7;border-radius: 10px;width: 98px;height: 41px;color: white; font-family: 'GmarketSansMedium',serif;border: none;
-    position: absolute; right: 100px; top: 20px;}
-	#btn_login {text-decoration: none; color: black;}
-	#myPage{position: absolute; right: 200px; top: 20px;}
-	#logout{position: absolute; right: 100px; top: 20px;}
-	.topMenu{position: relative;}
-	.containerPImg {
-		display: inline-block;	
-		width: 40px;
-		height: 40px;
-	    border-radius: 50%;
-		    overflow: hidden;
-		    position: absolute;
-		    top: 20px;
-		    right: 320px;
-		}
-	.containerPImg:hover{cursor: pointer;}	
-	.pImg {
-		object-fit: cover;	
-		height: 100%;
-		width: 100%;
-	}
-	button:hover {cursor: pointer;}
+	/*section 시작*/
 	section {margin: 0 auto; clear: both;}
 	section h1{margin-left: 20px;margin-top: 30px;}
 	.indexBlock {margin:0 auto; width: 1200px; height : 260px; margin-bottom: 30px;position: relative;}
@@ -50,29 +20,11 @@
 	.material-icons{width: 50px; height: 30px; position: absolute; top: 130px; margin-left: 20px;}
 	.material-icons:hover{cursor: pointer;}
 </style>
-<title>홈 화면</title>
+<title>모두의 웹툰</title>
 </head>
 <body>
 	<div id="container">
-		<div class="header">
-			<div class="topMenu">
-			<img alt="모두의 웹툰" src="/images/logo2.png" id="logo" onclick="goHome()">
-				<input type="search" id="search" placeholder="웹툰, 작가를 검색하세요" onkeydown="moveToResult()">
-				<c:choose>
-					<c:when test="${loginUser.name == null}">
-						<button id="login" onclick="moveToLogin()">로그인</button>
-						<button id="signin" onclick="moveToJoin()">회원가입</button>
-					</c:when>
-					<c:otherwise>
-						<div class="containerPImg" onclick="moveToProfile()">
-							<img class="pImg" src="${loginUser.profile == null ? '/images/login_logo/default_image.jpg' : loginUser.profile}" alt="프로필 설정 가기">
-						</div>
-						<button id="myPage" onclick="moveToMyPage()">${loginUser.name}님</button>
-						<button id="logout" onclick="moveToLogOut()">로그아웃</button>
-					</c:otherwise>
-				</c:choose>
-			</div>
-		</div>
+	<jsp:include page="../header/header.jsp"></jsp:include>
 	<section></section>
 	</div>
 	<script>
@@ -115,7 +67,7 @@
 	  	makeImage(kakaoList, "카카오페이지 추천",'카카오')
 	  	makeImage(lezhinList, "레진코믹스 추천",'레진')
 	  	
-	    function makeImage(list,title, result){
+	    function makeImage(list, title, result){
 			//컨테이너 안 섹션 태그 만들기
 		    let section = document.querySelector('section')
 		    container.append(section)
@@ -135,20 +87,19 @@
 		    indexBlock.append(listBlock)
 		    listBlock.classList.add('listBlock')
 		    //배열 인덱스 및 반복문 체크용
-		    var index = 0;
-	    	var chk = 0;
+		    let index = 0;
+	    	let chk = 0;
 		    
 		    //좌측 화살표 아이콘 집어넣기
 		    var icons = document.createElement('span')
 		    icons.classList.add('material-icons')
 		    icons.innerHTML = 'keyboard_arrow_left'
+		    icons.title = '이전 목록'
 	    	icons.addEventListener('click',function(){
-	    		if(index-5 > 0){
+	    		if(index - 5 > 0){
 	    		var imgBlock = document.createElement('div')
 		         imgBlock.classList.add('imgBlock')
-		         imgBlock.addEventListener('click',function moveToDetail() {
-		            location.href = '/webtoon/detail?w_no='+list[index].w_no         
-		         })
+		         imgBlock.setAttribute('onclick','moveToDetail('+list[index-6].w_no+')')
 		         var img = document.createElement('img')
 		         img.src = `\${list[index-6].w_thumbnail}`
 		         imgBlock.append(img)
@@ -169,17 +120,20 @@
 		    	 if(chk >= 4){chkChk = false}
 		         var imgBlock = document.createElement('div')
 		         imgBlock.classList.add('imgBlock')
-		         imgBlock.addEventListener('click',function moveToDetail() {
-		            location.href = '/webtoon/detail?w_no='+list[index].w_no         
-		         })
+		         imgBlock.setAttribute('onclick','moveToDetail('+list[index].w_no+')')
 		         var img = document.createElement('img')
 		         img.src = `\${list[index].w_thumbnail}`
+		         img.title = `\${list[index].w_title}`
+		         
 		         listBlock.append(imgBlock)
+		         
 		         imgBlock.append(img)
 		         imgBlock.append(document.createElement('br'))
 		         imgBlock.append(list[index].w_title)
+		         imgBlock.append(list[index].w_no)
+		         
 		         chk++;
-		         console.log('index : '+index)
+		         console.log('index : '+index+'w_no : '+list[index].w_no)
 		         index++;
 		    }
 		    console.log('index : '+index)
@@ -187,13 +141,12 @@
 		    var icons2 = document.createElement('span')
 		    icons2.classList.add('material-icons')
 		    icons2.innerHTML = 'keyboard_arrow_right'
+		    icons2.title = '다음 목록'
 		    icons2.addEventListener('click',function(){
 		    	 if(list.length > index){
 			    	 var imgBlock = document.createElement('div')
 			         imgBlock.classList.add('imgBlock')
-			         imgBlock.addEventListener('click',function moveToDetail() {
-			            location.href = '/webtoon/detail?w_no='+list[index].w_no         
-			         })
+			         imgBlock.setAttribute('onclick','moveToDetail('+list[index].w_no+')')
 			         var img = document.createElement('img')
 			         img.src = `\${list[index].w_thumbnail}`
 			         imgBlock.append(img)
@@ -209,11 +162,12 @@
 		    	 }
 		    })		   
 		    listBlock.append(icons2)
+		    console.log('마지막')
 	    }
-	    //웹툰 디테일 창으로 넘어가기
-	    function moveToDetail(w_no) {
-    		location.href = '/webtoon/detail?w_no='+w_no
-    	}
+    	//웹툰 상세페이지 가기
+	  	function moveToDetail(w_no) {
+	  		location.href = '/webtoon/detail?w_no='+w_no
+	  	}
 	  	//로그인으로 넘어가기
     	function moveToLogin() {
 			location.href = '/login'
