@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
 @font-face {font-family: 'GmarketSansMedium';src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight: normal;font-style: normal;}
-    #container {width: 100%; height:1000px;  margin: 0 auto; font-family: 'GmarketSansMedium', serif ;}
+    .#container {width: 100%; height:1000px;  margin: 0 auto; font-family: 'GmarketSansMedium', serif ;}
 	.header {width: 1200px; padding: 10px; height: 80px; margin: 15px auto;}
 	#logo{width: 250px; cursor: pointer; float: left; height: 80px; margin-left: 40px; z-index: 100%;}
 	#search {margin: 20px 10px 10px 130px;width: 406px;height: 41px;background: #FFFFFF;padding-left: 30px; 
@@ -73,117 +73,60 @@
 				</c:choose>
 			</div>
 		</div>
-	<section></section>
+	<section>
+		<div class="indexBlock" style="margin-bottom: 30px;">
+			<h1>네이버웹툰 추천</h1>
+			<hr>
+			<div class="listBlock">
+			<span class="material-icons">keyboard_arrow_left</span>
+				<c:forEach items="${list}" var="item" begin="0" end="4">
+					<c:if test="${item.w_plat_no == 1}">
+						<div class="imgBlock" onclick="moveToDetail(${item.w_no})">
+							<img src="${item.w_thumbnail}"><br>
+							${item.w_title}
+						</div>
+					</c:if>
+				</c:forEach>
+				<span class="material-icons	">keyboard_arrow_right</span>
+			</div>
+		</div>
+		<div class="indexBlock">
+			<h1>카카오페이지 추천</h1>
+			<hr>
+			<div class="listBlock">
+			<span class="material-icons">keyboard_arrow_left</span>
+				<c:forEach items="${list}" var="item" begin="15" end="19">
+					<c:if test="${item.w_plat_no == 3}">
+						<div class="imgBlock" onclick="moveToDetail(${item.w_no})">
+							<img src="${item.w_thumbnail}"><br>
+							${item.w_title}
+						</div>
+					</c:if>
+				</c:forEach>
+				<span class="material-icons	">keyboard_arrow_right</span>
+			</div>
+		</div>
+		<div class="indexBlock">
+			<h1>레진코믹스 추천</h1>
+			<hr>
+			<div class="listBlock">
+			<span class="material-icons">keyboard_arrow_left</span>
+				<c:forEach items="${list}" var="item" begin="30" end="34">
+					<c:if test="${item.w_plat_no == 4}">
+						<div class="imgBlock" onclick="moveToDetail(${item.w_no})">
+							<img src="${item.w_thumbnail}"><br>
+							${item.w_title}
+						</div>
+					</c:if>
+				</c:forEach>
+				<span class="material-icons	">keyboard_arrow_right</span>
+			</div>
+		</div>
+	</section>
+	<footer> </footer>
 	</div>
 	<script>
-		function ToonVO(w_no, w_title, w_thumbnail, w_plat_no){
-			this.w_no = w_no;
-			this.w_title = w_title;
-			this.w_thumbnail = w_thumbnail;
-			this.w_plat_no = w_plat_no;
-		}
-		//HomeSer에서 EL식으로 값을 받아와 자바스크립트 각 배열에 넣어주기
-    	var naverList = new Array();
-    	var kakaoList = new Array();
-    	var lezhinList = new Array();
-    	var daumList = new Array();
-    	var komikoList = new Array();
-		//배열에 넣어주기 위한 JSTL For-Each문  
-		<c:forEach items="${list}" var="item">
- 			var toonVO = new ToonVO("${item.w_no}","${item.w_title}","${item.w_thumbnail}","${item.w_plat_no}")
-			<c:choose>
-				<c:when test="${item.w_plat_no == 1}">
-    				naverList.push(toonVO)
-    			</c:when>
-				<c:when test="${item.w_plat_no == 2}">
-    				daumList.push(toonVO)
-    			</c:when>
-				<c:when test="${item.w_plat_no == 3}">
-    				kakaoList.push(toonVO)
-    			</c:when>
-				<c:when test="${item.w_plat_no == 4}">
-    				lezhinList.push(toonVO)
-    			</c:when>
-				<c:when test="${item.w_plat_no == 5}">
-    				komikoList.push(toonVO)
-    			</c:when>
- 			</c:choose>
-    	</c:forEach>
-    	
-    	//함수 사용으로 인한 간단한 호출...이거만 있으면 됨!!!
-	  	makeImage(naverList, "네이버 웹툰 추천")
-	  	makeImage(kakaoList, "카카오페이지 추천")
-	  	makeImage(lezhinList, "레진코믹스 추천")
-	  	
-	    function makeImage(list,title){
-			//컨테이너 안 섹션 태그 만들기
-		    let section = document.querySelector('section')
-		    container.append(section)
-		    //추천별 블록 만들기
-		    let indexBlock = document.createElement('div')
-		    indexBlock.classList.add('indexBlock')
-		    section.append(indexBlock)
-		    
-	    	//추천별 블록->타이틀+구분선
-		    let secTitle = document.createElement('h1')
-		    secTitle.append(title)
-		    indexBlock.append(secTitle) // 타이틀 이름 넣기  
-		    indexBlock.append(document.createElement('hr'))
-		
-		    //배열이 담길 전체 박스
-		    let listBlock = document.createElement('div')
-		    indexBlock.append(listBlock)
-		    listBlock.classList.add('listBlock')
-		    
-		    //좌측 화살표 아이콘 집어넣기
-		    var icons = document.createElement('span')
-		    icons.classList.add('material-icons')
-		    icons.innerHTML = 'keyboard_arrow_left'
-		    listBlock.append(icons)
-		    
-		    //배열 담길 전체 박스에 이미지 박스 추가
-		    var i = 0;
-	    	var chk = 0;
-	    	var chkChk = true;
-		    while(chkChk){
-		    	 if(chk >= 4){chkChk = false}
-		         var imgBlock = document.createElement('div')
-		         imgBlock.classList.add('imgBlock')
-		         imgBlock.addEventListener('click',function moveToDetail() {
-		            location.href = '/webtoon/detail?w_no='+list[i].w_no         
-		         })
-		         var img = document.createElement('img')
-		         img.src = `\${list[i].w_thumbnail}`
-		         listBlock.append(imgBlock)
-		         imgBlock.append(img)
-		         imgBlock.append(document.createElement('br'))
-		         imgBlock.append(list[i].w_title)
-		         chk++;
-		    	 i++;
-		    }
-		    //우측 화살표 아이콘 만들기
-		    var icons2 = document.createElement('span')
-		    icons2.classList.add('material-icons')
-		    icons2.innerHTML = 'keyboard_arrow_right'
-		    icons2.addEventListener('click',function(){
-		    	 var imgBlock = document.createElement('div')
-		         imgBlock.classList.add('imgBlock')
-		         imgBlock.addEventListener('click',function moveToDetail() {
-		            location.href = '/webtoon/detail?w_no='+list[i].w_no         
-		         })
-		         var img = document.createElement('img')
-		         img.src = `\${list[i].w_thumbnail}`
-		         imgBlock.append(img)
-		         imgBlock.append(document.createElement('br'))
-		         imgBlock.append(list[i].w_title)
-		         icons2.before(imgBlock)
-		         i++;
-		    	 listBlock.removeChild(listBlock.childNodes[1]); 
-		    })		   
-		    listBlock.append(icons2)
-	    }
-	    
-	    function moveToDetail(w_no) {
+    	function moveToDetail(w_no) {
     		location.href = '/webtoon/detail?w_no='+w_no
     	}
     	function moveToLogin() {
@@ -212,6 +155,34 @@
 	    		location.href = '/logout'
     		}
 		}
+    	var list1 = new Array();
+		console.log('네이버 시작')
+    	<c:forEach items="${list}" var="item1">
+	    	<c:if test="${item1.w_plat_no == 1}">
+		    	list1.push("${item1.w_no}");
+		    	list1.push("${item1.w_thumbnail}");
+		    	list1.push("${item1.w_title}");
+	    	</c:if>
+    	</c:forEach>
+    	console.log('카카오 시작')
+    	<c:forEach items="${list}" var="item1">
+	    	<c:if test="${item1.w_plat_no == 3}">
+		    	list1.push("${item1.w_no}");
+		    	list1.push("${item1.w_thumbnail}");
+		    	list1.push("${item1.w_title}");
+	    	</c:if>
+    	</c:forEach>
+    	console.log('레진 시작')
+    	<c:forEach items="${list}" var="item1">
+	    	<c:if test="${item1.w_plat_no == 4}">
+		    	list1.push("${item1.w_no}");
+		    	list1.push("${item1.w_thumbnail}");
+		    	list1.push("${item1.w_title}");
+	    	</c:if>
+    	</c:forEach>
+    	for (var i = 0; i < list1.length; i++) {
+    	    console.log(list1[i])
+    	}
     </script>
 </body>
 </html>

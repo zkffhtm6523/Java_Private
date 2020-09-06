@@ -19,27 +19,18 @@ public class HomeSer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//홈에 이미지 출력할 배열 생성
-		ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
 		//세션 정보 담긴 변수
 		UserVO loginUser = MyUtils.getLoginUser(request);
-		if(loginUser == null) {
-			System.out.println("로그인 유저 없음");
-			//네이버 정보 출력
-			list = WebtoonListDAO.selRandomWebtoonList(list, 1, 15);
-			//카카오 정보 출력
-			list = WebtoonListDAO.selRandomWebtoonList(list, 3, 15);
-			//레진 정보 출력
-			list = WebtoonListDAO.selRandomWebtoonList(list, 4, 15);
-			//네이버 정보 출력
-		}else {
-			//네이버 정보 출력
-			list = WebtoonListDAO.selRandomWebtoonList(list, 1, 15);
-			//카카오 정보 출력
-			list = WebtoonListDAO.selRandomWebtoonList(list, 3, 15);
-			//레진 정보 출력
-			list = WebtoonListDAO.selRandomWebtoonList(list, 4, 15);
-			//네이버 정보 출력
-		}
+		
+		ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
+		System.out.println("로그인 유저 없음");
+		//네이버 정보 출력
+		list = WebtoonListDAO.selRandomWebtoonList(list, 1, 15);
+		//카카오 정보 출력
+		list = WebtoonListDAO.selRandomWebtoonList(list, 3, 15);
+		//레진 정보 출력
+		list = WebtoonListDAO.selRandomWebtoonList(list, 4, 15);
+		//네이버 정보 출력
 		request.setAttribute("list", list);
 		ViewResolver.viewForward("home", request, response);
 	}
