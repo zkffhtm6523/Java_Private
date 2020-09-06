@@ -139,6 +139,21 @@
 		    var icons = document.createElement('span')
 		    icons.classList.add('material-icons')
 		    icons.innerHTML = 'keyboard_arrow_left'
+	    	icons.addEventListener('click',function(){
+		    	 var imgBlock = document.createElement('div')
+		         imgBlock.classList.add('imgBlock')
+		         imgBlock.addEventListener('click',function moveToDetail() {
+		            location.href = '/webtoon/detail?w_no='+list[i].w_no         
+		         })
+		         var img = document.createElement('img')
+		         img.src = `\${list[i].w_thumbnail}`
+		         imgBlock.append(img)
+		         imgBlock.append(document.createElement('br'))
+		         imgBlock.append(list[i].w_title)
+		         icons.after(imgBlock)
+		         i--;
+		    	 listBlock.removeChild(listBlock.childNodes[5]); 
+		    })	
 		    listBlock.append(icons)
 		    
 		    //배열 담길 전체 박스에 이미지 박스 추가
