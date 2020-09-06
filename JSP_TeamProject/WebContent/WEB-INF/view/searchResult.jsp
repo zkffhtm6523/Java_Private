@@ -42,8 +42,8 @@
     img{width: 180px; border-radius: 5%;}
     .container section {width: 1200px; padding: 10px; margin: 0 auto; clear: both;}
     h2{margin-top: 0px; width: 300px; margin-left: 80px;}
-    .webtoonContainer {width: 1100px; height:240px; padding: 10px; position: relative;}
-    ul {list-style-type: none; clear: both;}
+    .webtoonContainer {width: 1100px; height:180px; padding: 10px; position: relative;}
+    ul {list-style-type: none; clear: both; height: 185px; margin: 0 auto;padding-bottom: 15px;}
     ul li:nth-child(1) {float: left; padding: 30px; padding-top: 0px;}
     ul li img{ border-radius: 10%;
 	    transform: scale(1.1);
@@ -52,7 +52,8 @@
 	    -ms-transform: scale(1.1);
 	    -o-transform: scale(1.1);
 	    transition: all 0.2s ease-in-out;
-	    margin-right: 20px;	
+	    margin-right: 20px;
+	    margin-top: 5px;	
 	    }
     ul li img:hover {cursor: pointer;
 	    transform: scale(1.2);
@@ -60,11 +61,12 @@
 	    -moz-transform: scale(1.2);
 	    -ms-transform: scale(1.2);
 	    -o-transform: scale(1.2);}
+	ul li a{color: #0c65c6; text-decoration: none;}
     ul li:nth-child(2) {font-weight: bold; font-size: 1.2em; padding-top: 1px;}
     ul li:nth-child(3) {line-height: 25px;}
     ul li:not(:first-child){margin-top: 15px;}
     ul li .list{color: gray; font-weight: gray; font-weight: bold;}
-    ul .thumbnail{width: 200px; height: 200px;}
+    ul .thumbnail{width: 180px; height: 160px; margin-top: 10px;}
 </style>
 </head>
 <body>
