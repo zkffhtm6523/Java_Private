@@ -130,10 +130,8 @@
 		         imgBlock.append(img)
 		         imgBlock.append(document.createElement('br'))
 		         imgBlock.append(list[index].w_title)
-		         imgBlock.append(list[index].w_no)
 		         
 		         chk++;
-		         console.log('index : '+index+'w_no : '+list[index].w_no)
 		         index++;
 		    }
 		    console.log('index : '+index)
