@@ -25,10 +25,10 @@
 		width: 40px;
 		height: 40px;
 	    border-radius: 50%;
-		    overflow: hidden;
-		    position: absolute;
-		    top: 20px;
-		    right: 320px;
+	    overflow: hidden;
+	    position: absolute;
+	    top: 20px;
+	    right: 320px;
 		}
 	.containerPImg:hover{cursor: pointer;}	
 	.pImg {
@@ -50,7 +50,7 @@
 			</c:when>
 			<c:otherwise>
 				<div class="containerPImg" onclick="moveToProfile()" title="프로필 설정">
-					<img class="pImg" src="${loginUser.profile == null ? '/images/login_logo/default_image.jpg' : loginUser.profile}" alt="프로필 설정 가기">
+					<img class="pImg" src="${loginUser.profile == null ? '/images/u_profile/default_image.jpg' : loginUser.profile}" alt="프로필 설정 가기">
 				</div>
 				<button id="myPage" onclick="moveToMyPage()" title="내 정보">${loginUser.name}님</button>
 				<button id="logout" onclick="moveToLogOut()" title="로그아웃">로그아웃</button>

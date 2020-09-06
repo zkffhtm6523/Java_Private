@@ -6,11 +6,50 @@
 <meta charset="UTF-8">
 <title>Profile</title>
 <style type="text/css">
+	@font-face {font-family: 'GmarketSansMedium';src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight: normal;font-style: normal;}
+	section{background-color: #F8F8F8; margin: 15px auto; height: 780px; background-color: #F8F8F8;
+ 			border-top: 1px solid #EAEAEA; text-align: center;}
+ 	section .frmContainer{margin: 15px auto; text-align: center;}
+ 	.profileImg{width: 200px; border-radius: 50%; object-fit: cover; overflow: hidden;}
+ 	.name{color: gray; font-weight: gray; font-weight: bold;}
+ 	.updName{width: 280px; height: 41px;background: #FFFFFF; padding-left: 30px; 
+	padding-right:20px; border: 1px solid #4FA2C7; box-sizing: border-box; border-radius: 10px;
+	margin: 15px auto;}
+	.updName[type="search"]{font-family: 'GmarketSansMedium', serif ;
+	line-height: normal;padding-top: 6px;}
+	.updName:hover{cursor: pointer;}
+	.imgFile[type="file"]{font-family: 'GmarketSansMedium', serif ; width:200px;  text-align: center; margin: 5px auto;}
+	input[type="submit"]{font-family: 'GmarketSansMedium', serif ;}
+	.box-file-input label{
+	font-family: 'GmarketSansMedium', serif ;
+    display:inline-block;
+    background: #4FA2C7
+	}
 </style>
 </head>
 <body>
-<div class="container">
+<div id	="container">
 	<jsp:include page="../header/header.jsp"></jsp:include>
+	<section>
+		<h1>프로필 변경</h1>
+		<div class="printImage">
+			<c:choose>
+				<c:when test="${profileData.profile == ''}">
+					<img src="/images/u_profile/default_image.jpg" class="profileImg">
+				</c:when>
+			</c:choose>
+		</div>
+		<div class="frmContainer">
+			<form action="/profile" method="post" enctype="multipart/form-data">
+				<div>
+					<span class="name">이름</span>&nbsp;&nbsp;
+					<div><input type="search" name="updName" value="${profileData.name}" class="updName"></div>
+					<input type="file" name="profile_img" accept="image/*" value="이미지 선택" class="imgFile">
+					<input type="submit" value="업로드">
+				</div>
+			</form>
+		</div>
+	</section>
 </div>
 </body>
 <script type="text/javascript">

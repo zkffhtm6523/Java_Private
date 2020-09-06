@@ -10,6 +10,34 @@ import com.allWebtoon.db.JdbcUpdateInterface;
 import com.allWebtoon.vo.UserVO;
 
 public class UserDAO {
+	public static UserVO selUser(int i_user) {
+		String sql = " SELECT A.u_no, A.u_id, A.u_profile, A.u_email, A.u_name, "
+					+ " A.u_birth, A.gender_no "
+					+ " FROM t_user A "
+					+ " WHERE A.u_no = ? ";
+		
+		UserVO sqlResult = new UserVO();
+		
+		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+			@Override
+			public void prepared(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, i_user);
+			}
+			@Override
+			public int executeQuery(ResultSet rs) throws SQLException {
+				if(rs.next()) {
+					sqlResult.setU_no(rs.getInt("u_no"));
+					sqlResult.setUser_id(rs.getNString("u_id"));
+					sqlResult.setProfile(rs.getNString("u_profile"));
+					sqlResult.setEmail(rs.getNString("u_email"));
+					sqlResult.setName(rs.getNString("u_name"));
+					sqlResult.setGender(rs.getInt("gender_no") == 1 ? "여성" : "남성");
+				}
+				return 1;
+			}
+		});
+		return sqlResult;
+	}
 	
 	public static int insUser(UserVO param) {
 		
